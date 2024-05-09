@@ -24,7 +24,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
+  <a href="https://github.com/robert-adit-sukoco/prolog-jakarta-maps">
     <img src="images/Logo.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -33,14 +33,14 @@
   <p align="center">
     Jakarta pathfinding in Prolog
     <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/robert-adit-sukoco/prolog-jakarta-maps"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
+    <a href="https://github.com/robert-adit-sukoco/prolog-jakarta-maps">View Demo</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    <a href="https://github.com/robert-adit-sukoco/prolog-jakarta-maps/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+    <a href="https://github.com/robert-adit-sukoco/prolog-jakarta-maps/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
   </p>
 </div>
 
@@ -49,9 +49,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-"Prolog Jakarta Maps" is a project that is made as a mandatory final project for Prolog course in <em>Fasilkom UI</em> (Faculty of Computer Science, <em>Universitas Indonesia</em>). It aims to demonstrate the implementation of pathfinding algorithm in Prolog. 
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+"Prolog Jakarta Maps" is a project that is made as a mandatory final project for Prolog course in <em>Fasilkom UI</em> (Faculty of Computer Science, <em>Universitas Indonesia</em>). This project aims to demonstrate the implementation of pathfinding algorithm in Prolog, specifically Depth First Search. 
 
 ### Developers
 * Robertus Aditya Sukoco
@@ -67,13 +65,20 @@
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
-### Prerequisites
-
 * Install Prolog. More details in <a href="https://wwu-pi.github.io/tutorials/lectures/lsp/010_install_swi_prolog.html">this page</a>.
-
+* Run `swipl` in your Terminal / Command Prompt to enter the SWIPL terminal.
+* Consult the `main.pl` file in the SWIPL terminal.
+```pl
+?- consult('main.pl').
+true.
+```
+* Here's an example basic command.
+```pl
+?- get_shortest_route_plan('Ancol', 'Cengkareng', Path, Duration).
+Path = ['Cengkareng', 'Pantai Indah Kapuk', 'Ancol'],
+Duration = 44 ;
+```
+* See more features below.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -81,70 +86,83 @@ To get a local copy up and running follow these simple example steps.
 
 
 <!-- USAGE EXAMPLES -->
-## Usage
+## Features
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+### Get Shortest Path
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+```pl
+?- get_shortest_route_plan('Ancol', 'Cengkareng', Path, Duration).
+Path = ['Cengkareng', 'Pantai Indah Kapuk', 'Ancol'],
+Duration = 44 ;
+```
+The main feature. `Path` is to show the path of regions taken, `Duration` is how long it takes to go from region `A` to `B` in minutes. The pathfinding behavior may be altered with additional traffic jam data and vehicle mode, see the features below for more details.
+### Vehicle Mode
+```pl
+?- show_current_vehicle_mode.
+Current vehicle mode is motorbike
+true.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+?- change_vehicle_mode.
+Vehicle mode switched to car
+true.
+
+?- show_current_vehicle_mode.
+Current vehicle mode is car
+true.
+```
+Vehicle mode defines whether the program would go through toll roads or not. If the vehicle mode is car, going through toll roads is allowed (In Indonesia, motorbikes are not allowed to go through toll roads).
+
+### Traffic Jam "Database"
+
+("Macet" is the word for "traffic jam" in Bahasa Indonesia)
+```pl
+?- get_shortest_route_plan('Ancol', 'Cengkareng', Path, Duration).
+Path = ['Cengkareng', 'Pantai Indah Kapuk', 'Ancol'],
+Duration = 44.
+
+?- add_macet('Cengkareng', 'Pantai Indah Kapuk', 10).
+true.
+
+?- get_shortest_route_plan('Ancol', 'Cengkareng', Path, Duration).
+Path = ['Cengkareng', 'Pantai Indah Kapuk', 'Ancol'],
+Duration = 54.
+
+% Continue to the next example below
+```
+The predicate `add_macet(A, B, AdditionalDuration)` adds an information about the traffic jam condition, which adds the duration from region `A` to region `B` (and the other way around) by the `AdditionalDuration` parameter. So the total duration of region `A` to region `B` is `BaseDuration + AdditionalDuration` (Note: `BaseDuration` is predefined, see `routes.pl` for routing data).
+
+The traffic jam information can be retracted using the `retract_macet(A, B)` predicate. See this example:
+```pl
+% Omitted from above
+
+?- get_shortest_route_plan('Ancol', 'Cengkareng', Path, Duration).
+Path = ['Cengkareng', 'Pantai Indah Kapuk', 'Ancol'],
+Duration = 54.
+
+?- retract_macet('Cengkareng', 'Pantai Indah Kapuk').
+true.
+
+?- get_shortest_route_plan('Ancol', 'Cengkareng', Path, Duration).
+Path = ['Cengkareng', 'Pantai Indah Kapuk', 'Ancol'],
+Duration = 44.
+```
+
+See the [open issues](https://github.com/robert-adit-sukoco/prolog-jakarta-maps/issues) for a full list of proposed features (and known issues).
 
 
 
-<!-- ROADMAP -->
-## Roadmap
-
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-
-
-
-
+<br />
+<br />
+<br />
 
 <!-- ACKNOWLEDGMENTS -->
-## Disclaimer
+# Disclaimer
 
-* The map data included in our program might not be 100% accurate with the real life Jakarta map. Real life use of this project is not advised (yet)
+* The map data included in our program might not be 100% accurate with the real life Jakarta map. Real life usage of this project is not advised.
+* The map is bidirectional, unlike real world maps. Meaning the path and duration from A to B and from B to A will always be the same.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
-[forks-url]: https://github.com/github_username/repo_name/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
-[stars-url]: https://github.com/github_username/repo_name/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/repo_name/issues
-[license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
-[license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: images/screenshot.png
-[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
-[Next-url]: https://nextjs.org/
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
-[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
-[Vue-url]: https://vuejs.org/
-[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
-[Angular-url]: https://angular.io/
-[Svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
-[Svelte-url]: https://svelte.dev/
-[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
-[Laravel-url]: https://laravel.com
-[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Bootstrap-url]: https://getbootstrap.com
-[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com 
