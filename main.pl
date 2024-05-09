@@ -23,9 +23,9 @@ change_vehicle_mode :-
 % show_current_vehicle_mode / 0
 show_current_vehicle_mode :-
     using_vehicle(car), !,
-    write('Current vehicle mode is car').
-show_current_vehicle_mode :-
     write('Current vehicle mode is motorbike').
+show_current_vehicle_mode :-
+    write('Current vehicle mode is car').
 
 
 
@@ -47,13 +47,13 @@ add_macet(A, B, AdditionalDuration) :-
 
 
 % add_macet / 3
-retract_macet(A, B, AdditionalDuration) :-
+retract_macet(A, B) :-
     route(A, B, _, _),
     route(B, A, _, _),
-    macet(A, B, AdditionalDuration),
-    macet(B, A, AdditionalDuration),
-    retract(macet(A, B, AdditionalDuration)),
-    retract(macet(B, A, AdditionalDuration)).
+    macet(A, B, _),
+    macet(B, A, _),
+    retract(macet(A, B, _)),
+    retract(macet(B, A, _)).
 
 
 % get_path_duration / 3
