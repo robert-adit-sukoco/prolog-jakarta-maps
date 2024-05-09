@@ -1,8 +1,11 @@
 :- dynamic(macet / 3).
-:- dynamic(neighbors / 4).
 :- dynamic(using_vehicle / 1).
 
+% load routes
+:- consult('routes.pl').
+
 using_vehicle(car).
+
 
 % change_vehicle / 0
 change_vehicle_mode :-
@@ -15,6 +18,8 @@ change_vehicle_mode :-
     assert(using_vehicle(car)),
     write('Vehicle mode switched to motorbike').
 
+
+
 % show_current_vehicle_mode / 0
 show_current_vehicle_mode :-
     using_vehicle(car), !,
@@ -22,16 +27,57 @@ show_current_vehicle_mode :-
 show_current_vehicle_mode :-
     write('Current vehicle mode is motorbike').
 
+
+
 % path_is_traversable / 2
 path_is_traversable(A, B) :-
     using_vehicle(motorbike), !,
-    neighbors(A, B, _, is_not_toll).
-path_is_traversable(A, B) :- neighbors(A, B, _, _).
+    route(A, B, _, is_not_toll).
+path_is_traversable(A, B) :- route(A, B, _, _).
 
-% get_path_length / 3
-get_path_length(A, B, TotalDuration) :-
-    neighbors(A, B, BaseDuration, _),
+
+% add_macet / 3
+add_macet(A, B, AdditionalDuration) :-
+    route(A, B, _, _),
+    route(B, A, _, _),
+    \+ macet(A, B, AdditionalDuration),
+    \+ macet(B, A, AdditionalDuration),
+    assert(macet(A, B, AdditionalDuration)),
+    assert(macet(B, A, AdditionalDuration)).
+
+
+% add_macet / 3
+retract_macet(A, B, AdditionalDuration) :-
+    route(A, B, _, _),
+    route(B, A, _, _),
+    macet(A, B, AdditionalDuration),
+    macet(B, A, AdditionalDuration),
+    retract(macet(A, B, AdditionalDuration)),
+    retract(macet(B, A, AdditionalDuration)).
+
+
+% get_path_duration / 3
+get_path_duration(A, B, TotalDuration) :-
+    route(A, B, BaseDuration, _),
     macet(A, B, AdditionalDuration), !,
     TotalDuration is BaseDuration + AdditionalDuration.
-get_path_length(A, B, TotalDuration) :- 
-    neighbors(A, B, TotalDuration, _).
+get_path_duration(A, B, TotalDuration) :- 
+    route(A, B, TotalDuration, _).
+
+
+% get_shortest_route_plan / 4
+get_shortest_route_plan(From, To, Path, TotalDuration) :- dfs(From, To, Path, TotalDuration, []).
+
+
+% dfs / 5
+dfs(Start, End, Path, Duration, Visited) :-
+    dfs_acc(Start, End, [Start], Path, Duration, Visited).
+
+% dfs_acc / 6
+dfs_acc(End, End, Path, Path, 0, _) :- !.
+dfs_acc(Current, End, Path, FinalPath, TotalDuration, Visited) :-
+    path_is_traversable(Current, Next),
+    get_path_duration(Current, Next, Duration),
+    \+ member(Next, Visited),
+    dfs_acc(Next, End, [Next|Path], FinalPath, RestDuration, [Next|Visited]),
+    TotalDuration is Duration + RestDuration.
