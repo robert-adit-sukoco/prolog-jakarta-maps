@@ -75,7 +75,7 @@ true.
 * Here's an example basic command.
 ```pl
 ?- get_shortest_route_plan('Ancol', 'Cengkareng', Path, Duration).
-Path = ['Cengkareng', 'Pantai Indah Kapuk', 'Ancol'],
+Path = ['Ancol', 'Pantai Indah Kapuk', 'Cengkareng'],
 Duration = 44 ;
 ```
 * See more features below.
@@ -92,7 +92,7 @@ Duration = 44 ;
 
 ```pl
 ?- get_shortest_route_plan('Ancol', 'Cengkareng', Path, Duration).
-Path = ['Cengkareng', 'Pantai Indah Kapuk', 'Ancol'],
+Path = ['Ancol', 'Pantai Indah Kapuk', 'Cengkareng'],
 Duration = 44 ;
 ```
 The main feature. `Path` is to show the path of regions taken, `Duration` is how long it takes to go from region `A` to `B` in minutes. The pathfinding behavior may be altered with additional traffic jam data and vehicle mode, see the features below for more details.
@@ -117,14 +117,14 @@ Vehicle mode defines whether the program would go through toll roads or not. If 
 ("Macet" is the word for "traffic jam" in Bahasa Indonesia)
 ```pl
 ?- get_shortest_route_plan('Ancol', 'Cengkareng', Path, Duration).
-Path = ['Cengkareng', 'Pantai Indah Kapuk', 'Ancol'],
+Path = ['Ancol', 'Pantai Indah Kapuk', 'Cengkareng'],
 Duration = 44.
 
 ?- add_macet('Cengkareng', 'Pantai Indah Kapuk', 10).
 true.
 
 ?- get_shortest_route_plan('Ancol', 'Cengkareng', Path, Duration).
-Path = ['Cengkareng', 'Pantai Indah Kapuk', 'Ancol'],
+Path = ['Ancol', 'Pantai Indah Kapuk', 'Cengkareng'],
 Duration = 54.
 
 % Continue to the next example below
@@ -136,14 +136,14 @@ The traffic jam information can be retracted using the `retract_macet(A, B)` pre
 % Omitted from above
 
 ?- get_shortest_route_plan('Ancol', 'Cengkareng', Path, Duration).
-Path = ['Cengkareng', 'Pantai Indah Kapuk', 'Ancol'],
+Path = ['Ancol', 'Pantai Indah Kapuk', 'Cengkareng'],
 Duration = 54.
 
 ?- retract_macet('Cengkareng', 'Pantai Indah Kapuk').
 true.
 
 ?- get_shortest_route_plan('Ancol', 'Cengkareng', Path, Duration).
-Path = ['Cengkareng', 'Pantai Indah Kapuk', 'Ancol'],
+Path = ['Ancol', 'Pantai Indah Kapuk', 'Cengkareng'],
 Duration = 44.
 ```
 
