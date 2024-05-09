@@ -79,5 +79,7 @@ dfs_acc(Current, End, Path, FinalPath, TotalDuration, Visited) :-
     path_is_traversable(Current, Next),
     get_path_duration(Current, Next, Duration),
     \+ member(Next, Visited),
-    dfs_acc(Next, End, [Next|Path], FinalPath, RestDuration, [Next|Visited]),
+    append(Path, [Next], NewPath),
+    append(Visited, [Next], NewVisited),
+    dfs_acc(Next, End, NewPath, FinalPath, RestDuration, NewVisited),
     TotalDuration is Duration + RestDuration.
