@@ -33,15 +33,9 @@
   <p align="center">
     Jakarta pathfinding in Prolog
     <br />
-    <a href="https://github.com/robert-adit-sukoco/prolog-jakarta-maps"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/robert-adit-sukoco/prolog-jakarta-maps">View Demo</a>
-    ·
-    <a href="https://github.com/robert-adit-sukoco/prolog-jakarta-maps/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
-    ·
-    <a href="https://github.com/robert-adit-sukoco/prolog-jakarta-maps/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
-  </p>
+    </p>
 </div>
 
 
@@ -147,27 +141,6 @@ Path = ['Ancol', 'Pantai Indah Kapuk', 'Cengkareng'],
 Duration = 44.
 ```
 
-### List of Available Regions
-- Ancol
-- Pantai Indah Kapuk
-- Cengkareng
-- Mangga Besar
-- Kota Tua
-- Sunter
-
-
-### List of Available Toll Gates
-- GT PIK
-- GT Ancol
-- GT Puri
-- GT Slipi
-- GT Sudirman
-- GT Pancoran
-- GT Cempaka Putih
-- GT Lebak Bulus
-- GT Cilandak
-- GT Antam
-- GT Pasar Rebo
 
 Note: "GT" stands for "Gerbang Tol", which translates to "Toll Gate"
 
@@ -179,6 +152,28 @@ See the [open issues](https://github.com/robert-adit-sukoco/prolog-jakarta-maps/
   <img src="images/jakarta-map-light.png" alt="Jakarta Map">
 </a>
 To see more clearly, consider opening the following <a href="https://drive.google.com/file/d/1MZYYuctPteEpjukRo0CqsTTmBCQJC09T">draw.io link</a>.
+
+### Available Cities/Regions
+- Ancol
+- Pantai Indah Kapuk
+- Cengkareng
+- Mangga Besar
+- Kota Tua
+- Sunter
+
+
+### Available Toll Gates
+- GT PIK
+- GT Ancol
+- GT Puri
+- GT Slipi
+- GT Sudirman
+- GT Pancoran
+- GT Cempaka Putih
+- GT Lebak Bulus
+- GT Cilandak
+- GT Antam
+- GT Pasar Rebo
 
 
 
