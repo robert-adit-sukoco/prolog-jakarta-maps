@@ -45,7 +45,7 @@ add_macet(A, B, AdditionalDuration) :-
     route(A, B, _, _),
     route(B, A, _, _),
     \+ macet(A, B, AdditionalDuration),
-    \+ macet(B, A, AdditionalDuration),
+    \+ macet(B, A, AdditionalDuration), !,
     assert(macet(A, B, AdditionalDuration)),
     assert(macet(B, A, AdditionalDuration)).
 
@@ -55,9 +55,9 @@ retract_macet(A, B) :-
     route(A, B, _, _),
     route(B, A, _, _),
     macet(A, B, _),
-    macet(B, A, _),
+    macet(B, A, _), !,
     retract(macet(A, B, _)),
-    retract(macet(B, A, _)).
+    retract(macet(B, A, _)), !.
 
 
 % get_path_duration / 3
@@ -74,19 +74,47 @@ get_path_duration(A, B, TotalDuration) :-
 
 get_shortest_route(From, To, Path, TotalDuration) :- path(From, To, Path0, TotalDuration), !, reverse(Path0, Path).
 
-path(A, B, [B, A], Duration) :- using_vehicle(car), route(A, B, Duration, _), !.
+path(A, B, [B, A], Duration) :- 
+    using_vehicle(car), 
+    route(A, B, BaseDuration, _),
+    macet(A, B, AdditionalDuration), !,
+    Duration is BaseDuration + AdditionalDuration.
+path(A, B, [B, A], Duration) :- 
+    using_vehicle(car), 
+    route(A, B, Duration, _).
+
+path(A, B, [B|Ps], Duration) :-
+    using_vehicle(car),
+    route(C, B, Duration1, _),
+    macet(C, B, AdditionalDuration),
+    path(A, C, Ps, Duration0),
+    Duration is Duration0 + Duration1 + AdditionalDuration, !.
 path(A, B, [B|Ps], Duration) :-
     using_vehicle(car),
     route(C, B, Duration1, _),
     path(A, C, Ps, Duration0),
-    Duration is Duration0 + Duration1.
-path(A, B, [B, A], Duration) :- using_vehicle(motorbike), route(A, B, Duration, is_not_toll), !.
+    Duration is Duration0 + Duration1, !.
+
+path(A, B, [B, A], Duration) :- 
+    using_vehicle(motorbike), 
+    route(A, B, Duration, is_not_toll),
+    macet(A, B, AdditionalDuration), !,
+    Duration is BaseDuration + AdditionalDuration.
+path(A, B, [B, A], Duration) :- 
+    using_vehicle(motorbike), 
+    route(A, B, Duration, is_not_toll).
+
+path(A, B, [B|Ps], Duration) :-
+    using_vehicle(car),
+    route(C, B, Duration1, is_not_toll),
+    macet(C, B, AdditionalDuration),
+    path(A, C, Ps, Duration0),
+    Duration is Duration0 + Duration1 + AdditionalDuration, !.
 path(A, B, [B|Ps], Duration) :-
     using_vehicle(car),
     route(C, B, Duration1, is_not_toll),
     path(A, C, Ps, Duration0),
-    Duration is Duration0 + Duration1.
-
+    Duration is Duration0 + Duration1, !.
 
 % THIS DFS IS STILL BUGGY, TEMPORARILY USING A MORE BRUTEFORCE-ISH ALGO (the predicate 'path' above)
 % dfs / 5
