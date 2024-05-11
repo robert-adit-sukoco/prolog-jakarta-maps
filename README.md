@@ -25,7 +25,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/robert-adit-sukoco/prolog-jakarta-maps">
-    <img src="images/Logo.png" alt="Logo" width="80" height="80">
+    <img src="images/Logo.png" alt="Logo" width="100" height="100">
   </a>
 
 <h3 align="center">Prolog Jakarta Maps</h3>
@@ -174,6 +174,11 @@ Note: "GT" stands for "Gerbang Tol", which translates to "Toll Gate"
 See the [open issues](https://github.com/robert-adit-sukoco/prolog-jakarta-maps/issues) for a full list of proposed features (and known issues).
 
 
+## Jakarta Map Graph
+<a href="https://github.com/robert-adit-sukoco/prolog-jakarta-maps/tree/master/images">
+  <img src="images/jakarta-map-light.png" alt="Jakarta Map">
+</a>
+To see more clearly, consider opening the following <a href="https://drive.google.com/file/d/1MZYYuctPteEpjukRo0CqsTTmBCQJC09T">draw.io link</a>.
 
 
 
@@ -186,6 +191,7 @@ See the [open issues](https://github.com/robert-adit-sukoco/prolog-jakarta-maps/
 
 * The map data included in our program might not be 100% accurate with the real life Jakarta map. Real life usage of this project is not advised.
 * The map is bidirectional, unlike real world maps. Meaning the path and duration from A to B and from B to A will always be the same.
+* The graph is created with the developers' limited knowledge related to the map of Jakarta, Indonesia (and limited time for development).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
