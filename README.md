@@ -68,7 +68,7 @@ true.
 ```
 * Here's an example basic command.
 ```pl
-?- get_shortest_route_plan('Ancol', 'Cengkareng', Path, Duration).
+?- get_shortest_route('Ancol', 'Cengkareng', Path, Duration).
 Path = ['Ancol', 'Pantai Indah Kapuk', 'Cengkareng'],
 Duration = 44 ;
 ```
@@ -85,7 +85,7 @@ Duration = 44 ;
 ### Get Shortest Path
 
 ```pl
-?- get_shortest_route_plan('Ancol', 'Cengkareng', Path, Duration).
+?- get_shortest_route('Ancol', 'Cengkareng', Path, Duration).
 Path = ['Ancol', 'Pantai Indah Kapuk', 'Cengkareng'],
 Duration = 44 ;
 ```
@@ -110,14 +110,14 @@ Vehicle mode defines whether the program would go through toll roads or not. If 
 
 ("Macet" is the word for "traffic jam" in Bahasa Indonesia)
 ```pl
-?- get_shortest_route_plan('Ancol', 'Cengkareng', Path, Duration).
+?- get_shortest_route('Ancol', 'Cengkareng', Path, Duration).
 Path = ['Ancol', 'Pantai Indah Kapuk', 'Cengkareng'],
 Duration = 44.
 
 ?- add_macet('Cengkareng', 'Pantai Indah Kapuk', 10).
 true.
 
-?- get_shortest_route_plan('Ancol', 'Cengkareng', Path, Duration).
+?- get_shortest_route('Ancol', 'Cengkareng', Path, Duration).
 Path = ['Ancol', 'Pantai Indah Kapuk', 'Cengkareng'],
 Duration = 54.
 
@@ -129,14 +129,14 @@ The traffic jam information can be retracted using the `retract_macet(A, B)` pre
 ```pl
 % Omitted from above
 
-?- get_shortest_route_plan('Ancol', 'Cengkareng', Path, Duration).
+?- get_shortest_route('Ancol', 'Cengkareng', Path, Duration).
 Path = ['Ancol', 'Pantai Indah Kapuk', 'Cengkareng'],
 Duration = 54.
 
 ?- retract_macet('Cengkareng', 'Pantai Indah Kapuk').
 true.
 
-?- get_shortest_route_plan('Ancol', 'Cengkareng', Path, Duration).
+?- get_shortest_route('Ancol', 'Cengkareng', Path, Duration).
 Path = ['Ancol', 'Pantai Indah Kapuk', 'Cengkareng'],
 Duration = 44.
 ```
