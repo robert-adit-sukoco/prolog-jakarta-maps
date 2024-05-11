@@ -52,7 +52,7 @@
 "Prolog Jakarta Maps" is a project that is made as a mandatory final project for Prolog course in <em>Fasilkom UI</em> (Faculty of Computer Science, <em>Universitas Indonesia</em>). This project aims to demonstrate the implementation of pathfinding algorithm in Prolog, specifically Depth First Search. 
 
 ### Developers
-* Robertus Aditya Sukoco
+* <a href="https://github.com/robert-adit-sukoco">Robertus Aditya Sukoco</a>
 
 ### Built With
 
@@ -146,6 +146,30 @@ true.
 Path = ['Ancol', 'Pantai Indah Kapuk', 'Cengkareng'],
 Duration = 44.
 ```
+
+### List of Available Regions
+- Ancol
+- Pantai Indah Kapuk
+- Cengkareng
+- Mangga Besar
+- Kota Tua
+- Sunter
+
+
+### List of Available Toll Gates
+- GT PIK
+- GT Ancol
+- GT Puri
+- GT Slipi
+- GT Sudirman
+- GT Pancoran
+- GT Cempaka Putih
+- GT Lebak Bulus
+- GT Cilandak
+- GT Antam
+- GT Pasar Rebo
+
+Note: "GT" stands for "Gerbang Tol", which translates to "Toll Gate"
 
 See the [open issues](https://github.com/robert-adit-sukoco/prolog-jakarta-maps/issues) for a full list of proposed features (and known issues).
 
