@@ -1,8 +1,13 @@
 :- dynamic(macet / 3).
 :- dynamic(using_vehicle / 1).
 
+
+
 % load routes
+:- write('Loading all regions and paths....'), nl.
 :- consult('routes.pl').
+:- write('Regions loaded'), nl.
+
 
 using_vehicle(car).
 
@@ -12,28 +17,26 @@ change_vehicle_mode :-
     using_vehicle(car), !,
     retract(using_vehicle(car)),
     assert(using_vehicle(motorbike)),
-    write('Vehicle mode switched to car').
+    write('Vehicle mode switched to motorbike').
 change_vehicle_mode :-
     retract(using_vehicle(motorbike)),
     assert(using_vehicle(car)),
-    write('Vehicle mode switched to motorbike').
+    write('Vehicle mode switched to car').
 
 
 
 % show_current_vehicle_mode / 0
 show_current_vehicle_mode :-
     using_vehicle(car), !,
-    write('Current vehicle mode is motorbike').
-show_current_vehicle_mode :-
     write('Current vehicle mode is car').
+show_current_vehicle_mode :-
+    write('Current vehicle mode is motorbike').
 
 
 
 % path_is_traversable / 2
-path_is_traversable(A, B) :-
-    using_vehicle(motorbike), !,
-    route(A, B, _, is_not_toll).
-path_is_traversable(A, B) :- route(A, B, _, _).
+path_is_traversable(A, B) :- using_vehicle(car), route(A, B, _, _), !.
+path_is_traversable(A, B) :- using_vehicle(motorbike), route(A, B, _, is_not_toll), !.
 
 
 % add_macet / 3
