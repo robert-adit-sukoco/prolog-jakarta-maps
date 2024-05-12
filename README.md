@@ -160,10 +160,66 @@ To see more clearly, consider opening the following <a href="https://drive.googl
 - Mangga Besar
 - Kota Tua
 - Sunter
-
+- Daan Mogot
+- Puri
+- Central Park / Taman Anggrek
+- Kebon Jeruk
+- Slipi
+- Tanah Abang
+- Grand Indonesia
+- Bundaran HI
+- Menteng
+- Cikini
+- Monas
+- Cempaka Mas
+- Cempaka Putih
+- MOI
+- Kelapa Gading
+- Pulomas
+- Velodrome
+- Rawamangun
+- Rawasari
+- Pramuka
+- Pemuda
+- Klender
+- Pondok Bambu
+- Pondok Kelapa
+- Cipinang
+- Jatinegara
+- Otista
+- Dewi Sartika
+- UKI
+- Cililitan
+- Condet
+- Pasar Rebo
+- Kampung Rambutan
+- Cijantung
+- Manggarai
+- Pancoran
+- Tebet
+- Kalibata
+- Tendean
+- Sudirman
+- Senayan
+- Blok M
+- Gelora Bung Karno
+- Kebayoran Lama
+- Pondok Indah
+- Lebak Bulus
+- Haji Nawi
+- Fatmawati
+- Kemang
+- Cilandak
+- Mampang
+- Pejaten
+- Ragunan
+- Pasar Minggu
+- Tanjung Barat
+- Antam
 
 ### Available Toll Gates
 - GT PIK
+- GT Cengkareng
 - GT Ancol
 - GT Puri
 - GT Slipi
