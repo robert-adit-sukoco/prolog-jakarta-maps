@@ -47,6 +47,8 @@
 
 ### Developers
 * <a href="https://github.com/robert-adit-sukoco">Robertus Aditya Sukoco</a>
+* <a href="https://github.com/calistavh">Calista Vimalametta Heryadi</a>
+* <a href="https://github.com/zackhowisely">Zackho Wisely Darmawan</a>
 
 ### Built With
 
