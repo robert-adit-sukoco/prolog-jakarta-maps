@@ -63,12 +63,12 @@
 
 * Install Prolog. More details in <a href="https://wwu-pi.github.io/tutorials/lectures/lsp/010_install_swi_prolog.html">this page</a>.
 * Run `swipl` in your Terminal / Command Prompt to enter the SWIPL terminal.
-* Consult the `main.pl` file in the SWIPL terminal.
+* Consult/read the `main2.pl` file in the SWIPL terminal.
 ```pl
 ?- consult('main2.pl').
 true.
 ```
-Note: Currently our main.pl is still not working as intended, main2.pl is our current 
+Note: Currently our `main.pl` is still not working as intended, `main2.pl` is our current main file.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
