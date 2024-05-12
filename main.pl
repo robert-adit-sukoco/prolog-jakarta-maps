@@ -100,19 +100,19 @@ get_path_duration(A, B, TotalDuration) :-
 get_shortest_route(From, To, Path, TotalDuration) :- 
     retractall(visited(_)),
     find_n(
-        100,
+        50,
         p(Len0, Path0),
         path(From, To, Path0, Len0),
         Paths
     ),
     sort(Paths, Sorted),
     Sorted = [p(TotalDuration, Path0) | _],
-    reverse(Path0, Path).
+    reverse(Path0, Path),
+    print_path(Path).
 
 path(From, To, [To, From], Duration) :- 
     path_is_traversable(From, To), 
     get_path_duration(From, To, Duration).
-
 
 path(From, To, [To | PathTail], Duration) :-
     path_is_traversable(Intermediate, To),
@@ -121,3 +121,9 @@ path(From, To, [To | PathTail], Duration) :-
     path(From, Intermediate, PathTail, Duration0),
     Duration is Duration0 + Duration1,
     asserta(visited(Intermediate)).
+
+print_path([ Head ]) :- write(Head), nl, !.
+print_path([Head | Rest]) :-
+    write(Head), nl, 
+    write(' ↓ '), nl,
+    print_path(Rest).
