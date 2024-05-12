@@ -65,86 +65,27 @@
 * Run `swipl` in your Terminal / Command Prompt to enter the SWIPL terminal.
 * Consult the `main.pl` file in the SWIPL terminal.
 ```pl
-?- consult('main.pl').
+?- consult('main2.pl').
 true.
 ```
-* Here's an example basic command.
-```pl
-?- get_shortest_route('Ancol', 'Cengkareng', Path, Duration).
-Path = ['Ancol', 'Pantai Indah Kapuk', 'Cengkareng'],
-Duration = 44 ;
-```
-* See more features below.
-
+Note: Currently our main.pl is still not working as intended, main2.pl is our current 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
 <!-- USAGE EXAMPLES -->
-## Features
-
-### Get Shortest Path
+## Get Shortest Path
 
 ```pl
 ?- get_shortest_route('Ancol', 'Cengkareng', Path, Duration).
-Path = ['Ancol', 'Pantai Indah Kapuk', 'Cengkareng'],
-Duration = 44 ;
+Path = ['Ancol', 'GT Ancol', 'GT PIK', 'GT Cengkareng', 'Cengkareng'],
+Duration = 24 ;
 ```
 The main feature. `Path` is to show the path of regions taken, `Duration` is how long it takes to go from region `A` to `B` in minutes. The pathfinding behavior may be altered with additional traffic jam data and vehicle mode, see the features below for more details.
-### Vehicle Mode
-```pl
-?- show_current_vehicle_mode.
-Current vehicle mode is motorbike
-true.
-
-?- change_vehicle_mode.
-Vehicle mode switched to car
-true.
-
-?- show_current_vehicle_mode.
-Current vehicle mode is car
-true.
-```
-Vehicle mode defines whether the program would go through toll roads or not. If the vehicle mode is car, going through toll roads is allowed (In Indonesia, motorbikes are not allowed to go through toll roads).
-
-### Traffic Jam "Database"
-
-("Macet" is the word for "traffic jam" in Bahasa Indonesia)
-```pl
-?- get_shortest_route('Ancol', 'Cengkareng', Path, Duration).
-Path = ['Ancol', 'Pantai Indah Kapuk', 'Cengkareng'],
-Duration = 44.
-
-?- add_macet('Cengkareng', 'Pantai Indah Kapuk', 10).
-true.
-
-?- get_shortest_route('Ancol', 'Cengkareng', Path, Duration).
-Path = ['Ancol', 'Pantai Indah Kapuk', 'Cengkareng'],
-Duration = 54.
-
-% Continue to the next example below
-```
-The predicate `add_macet(A, B, AdditionalDuration)` adds an information about the traffic jam condition, which adds the duration from region `A` to region `B` (and the other way around) by the `AdditionalDuration` parameter. So the total duration of region `A` to region `B` is `BaseDuration + AdditionalDuration` (Note: `BaseDuration` is predefined, see `routes.pl` for routing data).
-
-The traffic jam information can be retracted using the `retract_macet(A, B)` predicate. See this example:
-```pl
-% Omitted from above
-
-?- get_shortest_route('Ancol', 'Cengkareng', Path, Duration).
-Path = ['Ancol', 'Pantai Indah Kapuk', 'Cengkareng'],
-Duration = 54.
-
-?- retract_macet('Cengkareng', 'Pantai Indah Kapuk').
-true.
-
-?- get_shortest_route('Ancol', 'Cengkareng', Path, Duration).
-Path = ['Ancol', 'Pantai Indah Kapuk', 'Cengkareng'],
-Duration = 44.
-```
 
 
-Note: "GT" stands for "Gerbang Tol", which translates to "Toll Gate"
+Note: "GT" stands for "Gerbang Tol", which translates to "Toll Gate", indicating that the path goes through the toll road.
 
 See the [open issues](https://github.com/robert-adit-sukoco/prolog-jakarta-maps/issues) for a full list of proposed features (and known issues).
 
@@ -155,7 +96,7 @@ See the [open issues](https://github.com/robert-adit-sukoco/prolog-jakarta-maps/
 </a>
 To see more clearly, consider opening the following <a href="https://drive.google.com/file/d/1MZYYuctPteEpjukRo0CqsTTmBCQJC09T">draw.io link</a>.
 
-### Available Cities/Regions
+### Available Nodes
 - Ancol
 - Pantai Indah Kapuk
 - Cengkareng
@@ -218,8 +159,6 @@ To see more clearly, consider opening the following <a href="https://drive.googl
 - Pasar Minggu
 - Tanjung Barat
 - Antam
-
-### Available Toll Gates
 - GT PIK
 - GT Cengkareng
 - GT Ancol
